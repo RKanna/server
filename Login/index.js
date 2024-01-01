@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 // mongoose.connect(
 //   "mongodb://tame-pink-pike-sock.cyclic.app:27017/BlogFullStackDB"
 // );
-mongoose.connect("mongodb://tame-pink-pike-sock.cyclic.app/BlogFullStackDB");
+mongoose.connect("mongodb://tame-pink-pike-sock.cyclic.app:27017/");
 
 app.get("/", (req, res) => {
   res.status(200).send("<h2>Auth Page</h2>");
