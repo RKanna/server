@@ -9,6 +9,10 @@ app.use(cors());
 
 mongoose.connect("mongodb://127.0.0.1:27017/BlogFullStackDB");
 
+app.get("/", (req, res) => {
+  res.status(200).send("<h2>Auth Page</h2>");
+});
+
 //For user Login
 app.post(`/login`, (req, res) => {
   const { email, password } = req.body;
