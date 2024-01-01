@@ -9,7 +9,10 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
 // mongoose.connect("mongodb://127.0.0.1:27017/BlogFullStackDB");
-mongoose.connect("mongodb://tame-pink-pike-sock.cyclic.app/");
+// mongoose.connect("mongodb://tame-pink-pike-sock.cyclic.app/");
+mongoose.connect(
+  "mongodb://tame-pink-pike-sock.cyclic.app:27017/BlogFullStackDB"
+);
 
 app.get("/", (req, res) => {
   res.status(200).send("<h2>Auth Page</h2>");
