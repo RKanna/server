@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 //   "mongodb+srv://rkannanbalakrishnan:pKeuSy2MParodAuI@blog.8bifagg.mongodb.net/BlogFullStackDB"
 // );
 const ConnectionURL =
-  "mongodb+srv://rkannanbalakrishnan:pKeuSy2MParodAuI@blog.8bifagg.mongodb.net/BlogFullStackDB";
+  "mongodb+srv://rkannanbalakrishnan:pKeuSy2MParodAuI@blog.8bifagg.mongodb.net:27017/BlogFullStackDB";
 
 mongoose.connect(ConnectionURL, {
   useNewUrlParser: true,
