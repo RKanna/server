@@ -51,7 +51,7 @@ app.post(`/Users`, (req, res) => {
 
 //For blog post after post SignIn
 
-app.post(`/api/v1/blogs`, (req, res) => {
+app.post(`http://localhost:5000/api/v1/blogs`, (req, res) => {
   const { title, content } = req.body;
   Blog.create(req.body)
     .then((blogEle) => res.json({ message: "Blog posted", blogEle }))
