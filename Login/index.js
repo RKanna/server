@@ -4,22 +4,21 @@ const cors = require("cors");
 const UsersModel = require("../Models/Users.js");
 
 const app = express();
-app.use(express.json());
 app.use(cors());
+// const corsOptions = {
+//   origin: "http://localhost:3000",
+//   credentials: true,
+//   optionSuccessStatus: 200,
+// };
+// app.use(cors(corsOptions));
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // mongoose.connect("mongodb://127.0.0.1:27017/BlogFullStackDB");
 
-// mongoose.connect(
-//   "mongodb+srv://rkannanbalakrishnan:pKeuSy2MParodAuI@blog.8bifagg.mongodb.net/BlogFullStackDB"
-// );
-const ConnectionURL =
-  "mongodb+srv://rkannanbalakrishnan:pKeuSy2MParodAuI@blog.8bifagg.mongodb.net:27017/BlogFullStackDB";
-
-mongoose.connect(ConnectionURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  "mongodb+srv://rkannanbalakrishnan:pKeuSy2MParodAuI@blog.8bifagg.mongodb.net/BlogFullStackDB"
+);
 
 app.get("/", (req, res) => {
   res.status(200).send("<h2>Auth Page</h2>");
