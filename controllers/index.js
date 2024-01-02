@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const UsersModel = require("../Models/Users.js");
-import Blog from "../Models/blogModel.js";
+const BlogsTestModel = require("../Models/blogModelTest.js");
 
 const app = express();
 app.use(cors());
@@ -51,9 +51,9 @@ app.post(`/Users`, (req, res) => {
 
 //For blog post after post SignIn
 
-app.post(`http://localhost:5000/api/v1/blogs`, (req, res) => {
+app.post(`http://localhost:3000/api/v1/blogs`, (req, res) => {
   const { title, content } = req.body;
-  Blog.create(req.body)
+  BlogsTestModel.create(req.body)
     .then((blogEle) => res.json({ message: "Blog posted", blogEle }))
     .catch((err) => res.status(400).json(err));
 });
