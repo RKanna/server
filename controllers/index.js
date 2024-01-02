@@ -2,15 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const UsersModel = require("../Models/Users.js");
+import Blog from "../Models/blogModel.js";
 
 const app = express();
 app.use(cors());
-// const corsOptions = {
-//   origin: "http://localhost:3000",
-//   credentials: true,
-//   optionSuccessStatus: 200,
-// };
-// app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -52,6 +47,15 @@ app.post(`/Users`, (req, res) => {
         .catch((err) => res.status(400).json(err));
     }
   });
+});
+
+//For blog post after post SignIn
+
+app.post(`/api/v1/blogs`, (req, res) => {
+  const { title, content } = req.body;
+  Blog.create(req.body)
+    .then((blogEle) => res.json({ message: "Blog posted", blogEle }))
+    .catch((err) => res.status(400).json(err));
 });
 
 app.listen(3001, () => {
