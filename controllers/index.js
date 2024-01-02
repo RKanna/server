@@ -9,11 +9,11 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// mongoose.connect("mongodb://127.0.0.1:27017/BlogFullStackDB");
+mongoose.connect("mongodb://127.0.0.1:27017/BlogFullStackDB");
 
-mongoose.connect(
-  "mongodb+srv://rkannanbalakrishnan:pKeuSy2MParodAuI@blog.8bifagg.mongodb.net/BlogFullStackDB"
-);
+// mongoose.connect(
+//   "mongodb+srv://rkannanbalakrishnan:pKeuSy2MParodAuI@blog.8bifagg.mongodb.net/BlogFullStackDB"
+// );
 
 app.get("/", (req, res) => {
   res.status(200).send("<h2>Auth Page</h2>");
@@ -51,9 +51,9 @@ app.post(`/Users`, (req, res) => {
 
 //For blog post after post SignIn
 
-app.post(`http://localhost:3000/api/v1/blogs`, (req, res) => {
+app.post(`/api/v1/blogs`, (req, res) => {
   const { title, content } = req.body;
-  BlogsTestModel.create(req.body)
+  BlogsTestModel.create({ title, content })
     .then((blogEle) => res.json({ message: "Blog posted", blogEle }))
     .catch((err) => res.status(400).json(err));
 });
