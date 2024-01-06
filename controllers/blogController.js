@@ -1,9 +1,9 @@
-import Blog from "../Models/blogModel.js";
+import BlogsTestModel from "../Models/blogModelTest.js";
 // CreateBlog
 export const createBlog = async (req, res) => {
   try {
     // console.log(req.body);
-    const blog = await new Blog(req.body).save();
+    const blog = await new BlogsTestModel(req.body).save();
     res.status(201).json({ success: true, data: blog });
   } catch (error) {
     res.status(500).json({ success: false, message: error });
@@ -13,7 +13,7 @@ export const createBlog = async (req, res) => {
 // GetAllBlogs
 export const getAllBlogs = async (req, res) => {
   try {
-    const allBlogs = await Blog.find();
+    const allBlogs = await BlogsTestModel.find();
     res.status(200).json({ success: true, data: allBlogs });
   } catch (error) {
     res.status(500).json({ success: false, message: error });
@@ -24,7 +24,7 @@ export const getAllBlogs = async (req, res) => {
 export const getBlogById = async (req, res) => {
   try {
     const { id } = req.params;
-    const blog = await Blog.findById(id);
+    const blog = await BlogsTestModel.findById(id);
     res.status(200).json({ success: true, data: blog });
   } catch (error) {
     res.status(500).json({ success: false, message: error });
@@ -35,7 +35,9 @@ export const getBlogById = async (req, res) => {
 export const updateBlogById = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedBlog = await Blog.findByIdAndUpdate(id, req.body);
+    const updatedBlog = await BlogsTestModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
     res.status(200).json({ success: true, data: updatedBlog });
   } catch (error) {
     res.status(500).json({ success: false, message: error });
@@ -46,7 +48,7 @@ export const updateBlogById = async (req, res) => {
 export const deleteBlogById = async (req, res) => {
   try {
     const { id } = req.params;
-    const blog = await Blog.findByIdAndDelete(id);
+    const blog = await BlogsTestModel.findByIdAndDelete(id);
     res.status(200).json({ success: true, data: blog });
   } catch (error) {
     res.status(500).json({ success: false, message: error });
