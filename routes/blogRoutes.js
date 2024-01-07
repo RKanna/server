@@ -5,6 +5,8 @@ import {
   getBlogById,
   updateBlogById,
   deleteBlogById,
+  getUserByEmail,
+  getBlogByIdNew,
 } from "../controllers/blogController.js";
 const router = express.Router();
 // createBlog
@@ -26,5 +28,13 @@ router.put("/:id", updateBlogById);
 // deleteBlogById
 // DELETE => http://localhost:5000/api/v1/blog/:id
 router.delete("/:id", deleteBlogById);
+
+// New route to get user by email
+// GET => http://localhost:5000/api/v1/users?email=:email
+router.get("/users", getUserByEmail);
+
+//////////////////////////////////////
+
+router.get("/:id", getBlogByIdNew);
 
 export default router;

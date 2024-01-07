@@ -1,4 +1,5 @@
 import BlogsTestModel from "../Models/blogModelTest.js";
+import UsersModel from "../Models/Users.js";
 // CreateBlog
 export const createBlog = async (req, res) => {
   try {
@@ -52,5 +53,36 @@ export const deleteBlogById = async (req, res) => {
     res.status(200).json({ success: true, data: blog });
   } catch (error) {
     res.status(500).json({ success: false, message: error });
+  }
+};
+//New code
+// Controller function to get user by email
+export const getUserByEmail = async (req, res) => {
+  const { email } = req.query;
+
+  try {
+    const user = await UsersModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+//////////////////////////////////////////////////////
+
+export const getBlogByIdNew = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log("Received id:", id);
+    const blog = await BlogsTestModel.findById(id);
+    res.status(200).json({ success: true, data: blog });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
   }
 };

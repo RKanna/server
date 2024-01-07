@@ -6,6 +6,7 @@ const blogSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
+      unique: true,
       minLength: [2, "Title must be of atleast 5 characters"],
     },
     content: {
@@ -46,8 +47,13 @@ const blogSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
   }
 );
+
+blogSchema.virtual("shortDescription").get(function () {
+  return this.content.slice(0, 200) + "...";
+});
 
 const BlogsTestModel = mongoose.model("blogs", blogSchema);
 
