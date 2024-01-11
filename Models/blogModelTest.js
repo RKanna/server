@@ -21,6 +21,11 @@ const blogSchema = new mongoose.Schema(
       required: true,
       minLength: [2, "Author must be of atleast 5 characters"],
     },
+    // author: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "Users",
+    //   required: true,
+    // },
     tags: {
       type: [String],
     },
@@ -43,6 +48,11 @@ const blogSchema = new mongoose.Schema(
     likes: {
       type: Number,
       default: 0,
+    },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
+      required: true,
     },
   },
   {

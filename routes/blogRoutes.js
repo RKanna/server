@@ -7,7 +7,13 @@ import {
   deleteBlogById,
   getUserByEmail,
   getBlogByIdNew,
+  createComment,
+  updateCommentById,
+  deleteCommentById,
+  updateLikesById,
+  getBlogsByAuthor,
 } from "../controllers/blogController.js";
+
 const router = express.Router();
 // createBlog
 // POST => http://localhost:5000/api/v1/blog
@@ -35,6 +41,23 @@ router.get("/users", getUserByEmail);
 
 //////////////////////////////////////
 
-router.get("/:id", getBlogByIdNew);
+router.get("/new/:id", getBlogByIdNew);
 
+//////////////////////////////////////
+/////////////////////////////////////
+
+//for creating comments
+router.post("/:id/comments", createComment);
+
+// update specific comment in specific blog
+router.put("/:id/comments/:commentId", updateCommentById);
+
+//deleting comment
+router.delete("/:id/comments/:commentId", deleteCommentById);
+
+//getting likes
+router.put("/:id/likes", updateLikesById);
+
+//filter
+router.get("/filter", getBlogsByAuthor);
 export default router;
