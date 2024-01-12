@@ -9,11 +9,20 @@ import bodyParser from "body-parser";
 
 const app = express();
 // app.use(cors());
+// app.use(
+//   cors({
+//     origin: ["https://tame-pink-pike-sock.cyclic.app"],
+//     methods: ["POST", "GET"],
+//     credentials: true,
+//   })
+// );
 app.use(
   cors({
     origin: ["https://tame-pink-pike-sock.cyclic.app"],
     methods: ["POST", "GET"],
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["Content-Range", "X-Content-Range"],
   })
 );
 
