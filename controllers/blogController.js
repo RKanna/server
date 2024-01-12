@@ -113,7 +113,8 @@ export const getBlogByIdNew = async (req, res) => {
 
 export const createBlog = async (req, res) => {
   try {
-    const userId = req.body.userId || localStorage.getItem("userId");
+    // const userId = req.body.userId || localStorage.getItem("userId");
+    const userId = req.body.userId;
 
     if (!userId) {
       return res
