@@ -18,13 +18,14 @@ const app = express();
 // );
 app.use(
   cors({
-    origin: ["https://tame-pink-pike-sock.cyclic.app"],
+    origin: "*",
     methods: ["POST", "GET"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     exposedHeaders: ["Content-Range", "X-Content-Range"],
   })
 );
+app.options("*", cors());
 
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 // app.use(express.urlencoded({ limit: "50mb", extended: true }));
