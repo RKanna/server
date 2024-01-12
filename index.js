@@ -8,7 +8,14 @@ import bcrypt from "bcrypt";
 import bodyParser from "body-parser";
 
 const app = express();
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: ["https://tame-pink-pike-sock.cyclic.app"],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
 
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 // app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -17,11 +24,11 @@ app.use("/api/v1/blogs", router);
 app.use("/api/v1/users", route);
 // app.use(express.urlencoded({ extended: false }));
 
-mongoose.connect("mongodb://127.0.0.1:27017/BlogFullStackDB");
+// mongoose.connect("mongodb://127.0.0.1:27017/BlogFullStackDB");
 
-// mongoose.connect(
-//   "mongodb+srv://rkannanbalakrishnan:pKeuSy2MParodAuI@blog.8bifagg.mongodb.net/BlogFullStackDB"
-// );
+mongoose.connect(
+  "mongodb+srv://rkannanbalakrishnan:pKeuSy2MParodAuI@blog.8bifagg.mongodb.net/BlogFullStackDB"
+);
 
 app.get("/", (req, res) => {
   res.status(200).send("<h2>Auth Page</h2>");
