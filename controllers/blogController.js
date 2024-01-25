@@ -1,36 +1,6 @@
 import BlogsTestModel from "../Models/blogModelTest.js";
 import UsersModel from "../Models/Users.js";
 import mongoose from "mongoose";
-// CreateBlog
-
-// CreateBlog
-// export const createBlog = async (req, res) => {
-//   try {
-//     // Get user ID from request or localStorage
-//     const userId = req.body.userId || localStorage.getItem("userId");
-
-//     // Check if user ID is available
-//     if (!userId) {
-//       return res
-//         .status(400)
-//         .json({ success: false, message: "User ID is missing" });
-//     }
-
-//     // finding the user with userId
-//     const user = await UsersModel.findById(userId);
-//     if (!user) {
-//       return res
-//         .status(404)
-//         .json({ success: false, message: "User not found" });
-//     }
-
-//     // Create blog post with user ID
-//     const blog = await new BlogsTestModel({ ...req.body, userId }).save();
-//     res.status(201).json({ success: true, data: blog });
-//   } catch (error) {
-//     res.status(500).json({ success: false, message: error.message });
-//   }
-// };
 
 // GetAllBlogs
 export const getAllBlogs = async (req, res) => {
@@ -95,8 +65,6 @@ export const getUserByEmail = async (req, res) => {
   }
 };
 
-//////////////////////////////////////////////////////
-
 export const getBlogByIdNew = async (req, res) => {
   try {
     const { id } = req.params;
@@ -108,12 +76,9 @@ export const getBlogByIdNew = async (req, res) => {
   }
 };
 
-//////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////
-
+//CreateBlog
 export const createBlog = async (req, res) => {
   try {
-    // const userId = req.body.userId || localStorage.getItem("userId");
     const userId = req.body.userId;
 
     if (!userId) {

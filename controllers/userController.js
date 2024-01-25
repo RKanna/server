@@ -24,8 +24,6 @@ export const updateUserProfile = async (req, res) => {
     const { userName, email, address, city, state, phoneNumber, profilePhoto } =
       req.body;
 
-    // You can add validation for the required fields here
-
     const updatedUser = await UsersModel.findByIdAndUpdate(
       userId,
       {
@@ -49,19 +47,3 @@ export const updateUserProfile = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
-///////////////////////////////////////
-//     res.json({ success: true, data: updatedUser });
-//   } catch (error) {
-//     console.error("Error updating user profile:", error);
-
-//     // Check for duplicate key error
-//     if (error.code === 11000) {
-//       return res
-//         .status(400)
-//         .json({ success: false, message: "Email already exists" });
-//     }
-
-//     res.status(500).json({ success: false, message: "Internal Server Error" });
-//   }
-// };

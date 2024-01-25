@@ -57,8 +57,8 @@ app.post(`/login`, async (req, res) => {
       if (isPasswordMatch) {
         res.json({
           success: true,
-          _id: user._id, // Include _id in the response
-          userEmail: user.email, // Include userEmail in the response
+          _id: user._id,
+          userEmail: user.email,
         });
       } else {
         res.status(401).json({
@@ -80,39 +80,6 @@ app.post(`/login`, async (req, res) => {
     });
   }
 });
-
-/////////////////////////////////////////
-
-// For user Registration
-// app.post(`/Users`, async (req, res) => {
-//   const { userName, email, password } = req.body;
-//   try {
-//     const existingUser = await UsersModel.findOne({ email: email });
-//     if (existingUser) {
-//       res.status(400).json("Email already exists");
-//     } else {
-//       const hashedPassword = await bcrypt.hash(password, 10);
-//       // req.body.password = hashedPassword;
-//       const newUser = {
-//         userName,
-//         email,
-//         password: hashedPassword,
-//         address,
-//         city,
-//         state,
-//         phoneNumber,
-//         profilePhoto,
-//       };
-
-//       // const user = await UsersModel.create(req.body);
-//       const user = await UsersModel.create(newUser);
-//       res.json({ message: "Signup success", user });
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json("Internal Server Error");
-//   }
-// });
 
 // For user Registration
 app.post(`/Users`, async (req, res) => {
@@ -158,14 +125,3 @@ app.post(`/Users`, async (req, res) => {
 app.listen(3001, () => {
   console.log("server is running");
 });
-//////////////////////////////////////
-
-//For blog post after post SignIn
-
-// app.post(`/api/v1/blogs`, (req, res) => {
-//   const { title, content } = req.body;
-//   BlogsTestModel.create({ title, content })
-//     .then((blogEle) => res.json({ message: "Blog posted", blogEle }))
-//     .catch((err) => res.status(400).json(err));
-// });
-////////////////////////////////////////////////////////
