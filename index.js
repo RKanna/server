@@ -34,11 +34,11 @@ app.use("/api/v1/blogs", router);
 app.use("/api/v1/users", route);
 // app.use(express.urlencoded({ extended: false }));
 
-// mongoose.connect("mongodb://127.0.0.1:27017/BlogFullStackDB");
+mongoose.connect("mongodb://127.0.0.1:27017/BlogFullStackDB");
 
-mongoose.connect(
-  "mongodb+srv://rkannanbalakrishnan:pKeuSy2MParodAuI@blog.8bifagg.mongodb.net/BlogFullStackDB"
-);
+// mongoose.connect(
+//   "mongodb+srv://rkannanbalakrishnan:pKeuSy2MParodAuI@blog.8bifagg.mongodb.net/BlogFullStackDB"
+// );
 
 app.get("/", (req, res) => {
   res.status(200).send("<h2>Auth Page</h2>");
@@ -84,28 +84,74 @@ app.post(`/login`, async (req, res) => {
 /////////////////////////////////////////
 
 // For user Registration
+// app.post(`/Users`, async (req, res) => {
+//   const { userName, email, password } = req.body;
+//   try {
+//     const existingUser = await UsersModel.findOne({ email: email });
+//     if (existingUser) {
+//       res.status(400).json("Email already exists");
+//     } else {
+//       const hashedPassword = await bcrypt.hash(password, 10);
+//       // req.body.password = hashedPassword;
+//       const newUser = {
+//         userName,
+//         email,
+//         password: hashedPassword,
+//         address,
+//         city,
+//         state,
+//         phoneNumber,
+//         profilePhoto,
+//       };
+
+//       // const user = await UsersModel.create(req.body);
+//       const user = await UsersModel.create(newUser);
+//       res.json({ message: "Signup success", user });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json("Internal Server Error");
+//   }
+// });
+
+// For user Registration
 app.post(`/Users`, async (req, res) => {
-  const { userName, email, password } = req.body;
+  const {
+    userName,
+    email,
+    password,
+    address,
+    city,
+    state,
+    phoneNumber,
+    profilePhoto,
+  } = req.body;
+
   try {
     const existingUser = await UsersModel.findOne({ email: email });
+
     if (existingUser) {
-      res.status(400).json("Email already exists");
+      return res.status(400).json({ message: "Email already exists" });
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
-      // req.body.password = hashedPassword;
-      const newUser = {
+
+      const newUser = new UsersModel({
         userName,
         email,
         password: hashedPassword,
-      };
+        address,
+        city,
+        state,
+        phoneNumber,
+        profilePhoto,
+      });
 
-      // const user = await UsersModel.create(req.body);
-      const user = await UsersModel.create(newUser);
-      res.json({ message: "Signup success", user });
+      const savedUser = await newUser.save();
+      res.status(201).json({ message: "Signup success", user: savedUser });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json("Internal Server Error");
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

@@ -1,8 +1,7 @@
 import express from "express";
 import {
   getUserById,
-  //   uploadImage,
-  //   getUserByUserName,
+  updateUserProfile,
 } from "../controllers/userController.js";
 
 const route = express.Router();
@@ -11,11 +10,6 @@ const route = express.Router();
 // GET => http://localhost:5000/api/v1/users/:id
 route.get("/:id", getUserById);
 
-// Get user by userName
-// route.get("/", getUserByUserName);
-
-// // Upload image
-// // POST => http://localhost:5000/api/v1/users/:id/upload
-// route.post("/:id/upload", uploadImage);
+route.put("/:id", updateUserProfile);
 
 export default route;

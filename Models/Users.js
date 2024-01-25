@@ -5,7 +5,11 @@ const UsersSchema = new mongoose.Schema({
   userName: String,
   email: String,
   password: String,
-  // image: String,
+  address: String,
+  city: String,
+  state: String,
+  phoneNumber: String,
+  profilePhoto: String,
   image: { data: Buffer, contentType: String },
 });
 

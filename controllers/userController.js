@@ -17,36 +17,51 @@ export const getUserById = async (req, res) => {
   }
 };
 
-//for uploading a image
-// userController.js
-export const uploadImage = async (req, res) => {
+// Update user profile
+export const updateUserProfile = async (req, res) => {
   try {
-    const { id } = req.params;
-    const user = await UsersModel.findById(id);
+    const userId = req.params.id;
+    const { userName, email, address, city, state, phoneNumber, profilePhoto } =
+      req.body;
 
-    if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
-    }
+    // You can add validation for the required fields here
 
-    const { image } = req.body;
+    const updatedUser = await UsersModel.findByIdAndUpdate(
+      userId,
+      {
+        $set: {
+          userName,
+          email,
+          address,
+          city,
+          state,
+          phoneNumber,
+          profilePhoto,
+        },
+      },
+      { new: true }
+    );
 
-    // Assuming the image is sent as base64 encoded data
-    const imageData = Buffer.from(image, "base64");
-
-    user.image = {
-      data: imageData,
-      contentType: "image/*", // Adjust the content type based on your needs
-    };
-
-    await user.save();
-
-    res
-      .status(200)
-      .json({ success: true, message: "Image uploaded successfully" });
+    res.json(updatedUser);
   } catch (error) {
-    console.error("Error uploading image:", error);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+    console.error(error);
+    //for giving the message to user you are trying to update a email that already exist in db
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+///////////////////////////////////////
+//     res.json({ success: true, data: updatedUser });
+//   } catch (error) {
+//     console.error("Error updating user profile:", error);
+
+//     // Check for duplicate key error
+//     if (error.code === 11000) {
+//       return res
+//         .status(400)
+//         .json({ success: false, message: "Email already exists" });
+//     }
+
+//     res.status(500).json({ success: false, message: "Internal Server Error" });
+//   }
+// };
