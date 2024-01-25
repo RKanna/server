@@ -82,45 +82,46 @@ app.post(`/login`, async (req, res) => {
 });
 
 // For user Registration
-app.post(`/Users`, async (req, res) => {
-  const {
-    userName,
-    email,
-    password,
-    address,
-    city,
-    state,
-    phoneNumber,
-    profilePhoto,
-  } = req.body;
+// app.post(`/Users`, async (req, res) => {
+//   const {
+//     userName,
+//     email,
+//     password,
+//     address,
+//     city,
+//     state,
+//     phoneNumber,
+//     profilePhoto,
+//   } = req.body;
 
-  try {
-    const existingUser = await UsersModel.findOne({ email: email });
+//   try {
+//     const existingUser = await UsersModel.findOne({ email: email });
 
-    if (existingUser) {
-      return res.status(400).json({ message: "Email already exists" });
-    } else {
-      const hashedPassword = await bcrypt.hash(password, 10);
+//     if (existingUser) {
+//       return res.status(400).json({ message: "Email already exists" });
+//     } else {
+//       const hashedPassword = await bcrypt.hash(password, 10);
 
-      const newUser = new UsersModel({
-        userName,
-        email,
-        password: hashedPassword,
-        address,
-        city,
-        state,
-        phoneNumber,
-        profilePhoto,
-      });
+//       const newUser = new UsersModel({
+//         userName,
+//         email,
+//         password: hashedPassword,
+//         address,
+//         city,
+//         state,
+//         phoneNumber,
+//         profilePhoto,
+//       });
 
-      const savedUser = await newUser.save();
-      res.status(201).json({ message: "Signup success", user: savedUser });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
+//       const savedUser = await newUser.save();
+//       console.log("Saved user data:", savedUser);
+//       res.status(201).json({ message: "Signup success", user: savedUser });
+//     }
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ message: "Internal Server Error" });
+//   }
+// });
 
 app.listen(3001, () => {
   console.log("server is running");
