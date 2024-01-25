@@ -11,7 +11,7 @@ const route = express.Router();
 // GET => http://localhost:5000/api/v1/users/:id
 route.get("/:id", getUserById);
 
-route.post("/Users", createUserProfile);
+route.post("/", createUserProfile);
 
 route.put("/:id", updateUserProfile);
 

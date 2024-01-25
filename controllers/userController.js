@@ -1,4 +1,5 @@
 import UsersModel from "../Models/Users.js";
+import bcrypt from "bcrypt";
 
 export const getUserById = async (req, res) => {
   try {
@@ -33,16 +34,12 @@ export const createUserProfile = async (req, res) => {
   console.log("Request Body:", req.body);
 
   try {
-    // Check if the user with the given email already exists
     const existingUser = await UsersModel.findOne({ email: email });
 
     if (existingUser) {
       return res.status(400).json({ message: "Email already exists" });
     } else {
-      // Hash the password before saving it to the database
       const hashedPassword = await bcrypt.hash(password, 10);
-
-      // Create a new user instance
       const newUser = new UsersModel({
         userName,
         email,
@@ -54,15 +51,15 @@ export const createUserProfile = async (req, res) => {
         profilePhoto,
       });
 
-      // Save the new user to the database
       const savedUser = await newUser.save();
 
-      // Return the saved user data as a response
       res.status(201).json({ message: "Signup success", user: savedUser });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res
+      .status(500)
+      .json({ message: "Internal Server Error", error: error.message });
   }
 };
 
